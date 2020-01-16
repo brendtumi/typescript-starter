@@ -1,0 +1,79 @@
+{
+  "private": true,
+  "name": "typescript-starter-setup",
+  "version": "0.0.1",
+  "description": "Typescript starter template setup",
+  "main": "build/main/index.js",
+  "typings": "build/main/index.d.ts",
+  "module": "build/module/index.js",
+  "scripts": {
+    "cov:html": "nyc npm run test && nyc report --reporter=html && npx opn-cli coverage/index.html",
+    "cov": "nyc npm run test && nyc check-coverage",
+    "test": "ts-mocha test/**/*.spec.ts --require source-map-support/register --exit",
+    "lint": "tslint --fix --project .",
+    "build": "npm run clean && tsc --skipLibCheck -p ./tsconfig.json && tsc --skipLibCheck -p ./tsconfig.module.json",
+    "clean": "rimraf build",
+    "preversion": "npm test",
+    "version": "npm run build",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:brendtumi/typescript-starter.git"
+  },
+  "author": "Tumay Ceber",
+  "devDependencies": {
+    "@types/chai": "4.2.7",
+    "@types/chai-as-promised": "7.1.2",
+    "@types/mocha": "5.2.7",
+    "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
+    "husky": "4.0.6",
+    "lint-staged": "9.5.0",
+    "mocha": "7.0.0",
+    "nyc": "^15.0.0",
+    "prettier": "1.19.1",
+    "rimraf": "3.0.0",
+    "ts-mocha": "6.0.0",
+    "tslint": "5.20.1",
+    "tslint-config-prettier": "1.18.0",
+    "tslint-plugin-prettier": "2.1.0",
+    "typescript": "3.7.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run cov"
+    }
+  },
+  "lint-staged": {
+    "*.{ts}": [
+      "npm run lint --",
+      "npm run build --",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 160,
+    "trailingComma": "all"
+  },
+  "dependencies": {},
+  "nyc": {
+    "statements": 90,
+    "branches": 90,
+    "functions": 90,
+    "lines": 90,
+    "exclude": [
+      "**/*.d.ts",
+      "**/*.spec.ts",
+      "**/*.native.ts"
+    ],
+    "reporter": [
+      "lcov",
+      "html",
+      "text",
+      "text-summary"
+    ]
+  }
+}

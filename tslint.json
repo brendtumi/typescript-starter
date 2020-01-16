@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-plugin-prettier",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "prettier": true,
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "no-implicit-dependencies": [
+      true,
+      "dev",
+      "optional"
+    ],
+    "no-var-keyword": true,
+    "no-parameter-reassignment": true,
+    "typedef": [
+      true,
+      "call-signature"
+    ],
+    "object-literal-sort-keys": false,
+    "no-console": false
+  }
+}
